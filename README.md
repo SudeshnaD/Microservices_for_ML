@@ -4,6 +4,7 @@
 
 Hello,
 
+
 In this coding exercise you will be addressing an issue/task that is central to our day-to-day work: writing and maintaining micro-services. This exercise aims to test your ability to write services that efficiently solve problems we have in our business.
 
 **Please read this document carefully before starting, as it outlines your task, the constraints and by what criteria you will be evaluated.**
