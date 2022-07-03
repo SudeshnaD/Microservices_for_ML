@@ -20,7 +20,7 @@ async def get_all_employees():
     #print("here here 2")
     return es_obj.get_all_employees(df_us,df_uk,merged_df)
 
-@app.get("/api/employees/name={name}")
+@app.get("/api/employees/{name}")
 async def get_employee_data(name = None):
     try:
         keystring = requests.utils.unquote(name)

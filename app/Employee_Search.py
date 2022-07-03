@@ -10,8 +10,8 @@ class Employee_Search:
        print(os.getcwd())
        return None
 
+    #Read csv files into memory
     def load_csv(self,):
-        #Read csv files into memory
         df_us = pd.read_csv(os.path.join(abs_path,"../employees/us.csv"))
         df_us["Country"] = "USA"
         df_uk = pd.read_csv(os.path.join(abs_path,"../employees/uk.csv"))
@@ -24,23 +24,24 @@ class Employee_Search:
         if len(keywords) == 1:
             employee_data = merged_df.loc[(merged_df['first_name'] == keywords[0]) + (merged_df['last_name'] == keywords[0])]
         else:
-            employee_data = merged_df.loc[(merged_df['first_name'] == keywords[:len(keywords)]) + (merged_df['last_name'] == keywords[:-1])]
+            employee_data = merged_df.loc[(merged_df['first_name'] == keywords[:-1][0]) + (merged_df['last_name'] == keywords[:1][0])]
 
         #Store data as dictionary to be returned as json by endpoint
         employee_data_dict = {k:"" for k in ["name", "company", "address", "phone", "email"]}
-        employee_data_dict["name"] = employee_data['first_name'][0] + " " + employee_data['last_name'][0]
-        employee_data_dict["company"] = employee_data["company_name"][0]
-        employee_data_dict["email"] = employee_data["email"][0]
-        if employee_data["Country"][0] == "USA":
+        employee_data_dict["name"] = employee_data['first_name'].iloc[0] + " " + employee_data['last_name'].iloc[0]
+        employee_data_dict["company"] = employee_data["company_name"].iloc[0]
+        employee_data_dict["email"] = employee_data["email"].iloc[0]
+        print(employee_data_dict)
+        if employee_data["Country"].iloc[0] == "USA":
             employee_data_dict["address"] = employee_data[["address","city","state","zip","Country"]].iloc[0,:].to_dict()
-            employee_data_dict["phone"] = employee_data["phone2"][0]
+            employee_data_dict["phone"] = employee_data["phone2"].iloc[0]
         else:
-            employee_data_dict["address"] = employee_data[["address","city","upper_case(county)","postal","Country"]].iloc[0,:].to_dict()
-            employee_data_dict["phone"] = employee_data["phone1"][0]
+            employee_data_dict["address"] = employee_data[["address","city","county","postal","Country"]].iloc[0,:].to_dict()
+            employee_data_dict["phone"] = employee_data["phone1"].iloc[0]
         return json.dumps(employee_data_dict)
 
 
-
+    #Display information for all employees in the format{region, count, employees}
     def get_all_employees(self,df_us,df_uk,merged_df):
         state_dict = {k:{"count":0,"employees":[]} for k in df_us.groupby("state").groups.keys()}
         county_dict = {k:{"count":0,"employees":[]} for k in df_uk.groupby("county").groups.keys()}
