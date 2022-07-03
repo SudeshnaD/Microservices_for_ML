@@ -72,3 +72,8 @@ You will be evaluated by a number of criteria, among others:
 
 
 ### Good luck!!
+
+
+To run the API:
+Install the libraries from requirement.txt
+Execute the script run_api.py
