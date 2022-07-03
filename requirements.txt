@@ -1,9 +1,7 @@
 async_generator
 fastapi
-json
-os
+jsonschema
 pandas
-python
 pytest
 requests
 uvicorn
