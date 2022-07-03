@@ -13,7 +13,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message" : "Hello World"}
+    return {"message" : "API active"}
 
 @app.get("/api/employees/")
 async def get_all_employees():

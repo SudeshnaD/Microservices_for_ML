@@ -28,7 +28,7 @@ class Employee_Search:
 
         #Store data as dictionary to be returned as json by endpoint
         employee_data_dict = {k:"" for k in ["name", "company", "address", "phone", "email"]}
-        employee_data_dict["name"] = employee_data['first_name'][0] + employee_data['last_name'][0]
+        employee_data_dict["name"] = employee_data['first_name'][0] + " " + employee_data['last_name'][0]
         employee_data_dict["company"] = employee_data["company_name"][0]
         employee_data_dict["email"] = employee_data["email"][0]
         if employee_data["Country"][0] == "USA":
